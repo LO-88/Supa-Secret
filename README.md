@@ -34,8 +34,52 @@ This configures your email. I don't think this is necessary.
 
 #### 4. Fire Up Ye Olde Visual Studio
 
-Create the project that you want to use for Homework 6. Name it whatever you want, and put it wherever you want. Once you have a new project, go to Powershell and cd to to that location. The command is the same as the Linux environment on John, so you just need to navigate to the folder that contains the source code for your Visual Studio project. Once you're there, type this in the console:
+Create the project that you want to use for Homework 6. Name it whatever you want, and put it wherever you want. 
+
+#### 5. Clone the Forked Repository
+
+Once you have a new project, go to Powershell and cd to to that location. The command is the same as the Linux environment on John, so you just need to navigate to the folder that contains the source code for your Visual Studio project. Once you're there, type this in the console:
 
 > `git init`
 
-This initializes the folder for a git repository. 
+This initializes the folder for a git repository. Next, type this to clone all of the files on the forked repository to your machine:
+
+> `git clone [URL of the forked repository]`
+
+Now you should have a subdirectory that has all the files. Copy the contents of this directory into the Project's source directory. Add the existing files in Visual Studio. (This will only have to be done the first time)
+
+#### 6. Change the Code
+
+Program like a madman, man.
+
+#### 7. Commit the Changes
+
+Now that you single-handedly solved the Homework assignment, open up Powershell still and the Visual Studio project directory. Use the add command to add all of the files to be ready for the push:
+
+> `git add .`
+
+This adds everything in the current directory to the "queue" to be pushed to GitHub. After you've done that, commit the changes.
+
+> `git commit -m "A description of the changes you made"`
+
+This finalizes your changes and gets them ready to be pushed to your forked repository. 
+
+#### 8. Push Your Commit
+
+Now that you've done it all, you need to push your changes to the forked repository. Type this at the command line:
+
+> `git remote add origin [URL of the forked repository]`
+
+This specifies to which repository you're making the changes. Finally, make the changes. Type this:
+
+> `git push orign master`
+
+This will put all of your changes onto your forked repository on GitHub. If you check the website, it now will have the changes you made. 
+
+#### 9. Submit a Pull Request
+
+To merge your forked repository with the normal one, navigate to your forked repository on GitHub.com. (It should be on your account's page) Just under the horizontal bar that says commits, branches, and releases there should be a button that says `New Pull Request`. Click this button, follow the on-screen instructions. This will try to send your code to the master repository and merge the two. 
+
+#### 10. Celebrate Because You Know How to Use GitHub
+
+You did the thing.
