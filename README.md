@@ -39,3 +39,51 @@ Create the project that you want to use for Homework 6. Name it whatever you wan
 > `git init`
 
 This initializes the folder for a git repository. 
+
+#### 5. Pull or Clone the Forked Repository
+
+Use these commands to copy the code into the file you're at in Powershell:
+
+> `git clone [URL of the forked repository]`
+
+This copies all the files to a folder in your current directory. Use this command to overwrite all the files in your current directory:
+
+> `git pull [URL of the forked repository]`
+
+This will pull all the stuff off of GitHub and update your current directory. Once you've got all the files you need, go into Visual Studio and add them as existing files. (You'll only need to do this the first time)
+
+#### 6. Program Like a Maniac
+
+Make all the changes. Make Bill Gates proud. 
+
+#### 7. Add the Changes for a Commit
+
+In powershell, with it set to your Visual Studio project directory, type
+
+> `git add .`
+
+This will add all the files in this directory to your changes. Next, type
+
+> `git commit -m "description of changes"`
+
+This will make a commit to the repository. It's basically so you can track what you've done to the code.
+
+#### 8. Set the Remote Location
+
+Get the URL for the forked directory. Run this command to set the remote directory
+
+> `git remote add origin [URL of forked repository]`
+
+This sets the thing you're adding code to. After you've added the origin, you can push them to GitHub using this command
+
+> `git push origin master`
+
+You have now successfully changed the code on your forked repository, and GitHub should reflect the changes you made.
+
+#### 9. Submit a Pull Request
+
+Go to the repository page and click on `New Pull Request`. Follow the instructions to merge your forked repository with the project one. This will assimilate all the code and make it all good.
+
+#### 10. Celebrate
+
+You just did the thing.
