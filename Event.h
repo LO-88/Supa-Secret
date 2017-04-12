@@ -30,4 +30,3 @@ public:
 };
 
 #endif // !EVENT_H
-
