@@ -7,6 +7,15 @@ using namespace std;
 
 class Gate;
 
+/*
+    Wire class
+    
+    The Wire class contains the state and name of a specific Wire.
+    It is used to propogate a value through the circuit.
+    
+    Author: Logan O'Brien
+    Date:   4/11/17
+*/
 class Wire {
 private:
 	string name;
