@@ -2,6 +2,16 @@
 #define EVENT_H
 
 using namespace std;
+
+/*
+    Event class
+    
+    The Event class tracks a specific event for pushing into the priority
+    queue.
+    
+    Author: Logan O'Brien
+    Date:   4/11/17
+*/
 class Event {
 private: 
 	int eventNum;
