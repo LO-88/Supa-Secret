@@ -30,7 +30,7 @@ public:
 	Wire(string nameVal) : name(nameVal), state(UNDEF) {}
 
 	//Setter functions:
-	void addGate(Gate*);
+	void addGate(Gate* gate);
 	void setName(string nameVal);
 	void setState(short stateVal);
 
