@@ -26,6 +26,11 @@ void Wire::setState(short stateVal)
    state = stateVal;
 }
 
+void Wire::setWireNumber(short num)
+{
+   wireNum = num;
+}
+
 string Wire::getName() const
 {
    return name;
@@ -34,6 +39,11 @@ string Wire::getName() const
 short Wire::getState() const
 {
    return state;
+}
+
+short Wire::getWireNumber() const
+{
+   return wireNum;
 }
 
 vector<Gate*> Wire::getGates() const
