@@ -35,3 +35,8 @@ short Wire::getState() const
 {
    return state;
 }
+
+vector<Gate*> Wire::getGates() const
+{
+   return drives;
+}

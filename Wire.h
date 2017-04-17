@@ -15,6 +15,7 @@ class Gate;
 
     Modifications:
       - Corrected type of history from char to short - DTF
+      - Added getGates() function for use in the Circuit class - DTF
 
     Author: Logan O'Brien
     Date:   4/11/17
@@ -40,7 +41,9 @@ public:
    //Getter functions:
    string getName() const;
    short getState() const;
-   //getters and setters for the vectors?
+
+   //getters and setters for the vectors
+   vector<Gate*> getGates() const;
 
    //Destructor??
 };
