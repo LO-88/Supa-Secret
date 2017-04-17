@@ -1,17 +1,30 @@
 #include "Circuit.h"
 #include "Event.h"
+#include "Wire.h"
+#include "Gate.h"
 
 
 Circuit::Circuit()
 {
 }
 
-Event Circuit::processEvent(const Event& currentEvent)
+vector<Event*> Circuit::processEvent(const Event& currentEvent)
 {
-   Event e = Event::NULL_EVT;
 
+   vector<Event*> newEvents;
 
-   return e;
+   // Set the new state of the wires
+   wires[currentEvent.getWireNum()]->setState(currentEvent.getEventValue());
+
+   vector<Gate*> drivenGates = wires[currentEvent.getWireNum()]->getGates();
+
+   // Recalculate the output for the gates driven by this wire
+   for (auto i = drivenGates.begin(); i != drivenGates.end(); i++)
+   {
+      
+   }
+
+   return newEvents;
 }
 
 void Circuit::addGate(Gate* newGate)
