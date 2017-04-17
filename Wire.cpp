@@ -11,6 +11,19 @@
 //can be used as a sentinal value.
 const int Wire::UNDEF = 3;
 
+void Wire::mapHistory(int time, short state)
+{
+   int   prevStateIndex = history.size() - 1;
+   short prevState      = history[prevStateIndex];
+     
+   for (int i = 0; i < (time - prevStateIndex); i++)
+   {
+      history.push_back(prevState);
+   }
+
+   history.push_back(state);
+}
+
 void Wire::addGate(Gate * gate)
 {
    drives.push_back(gate);
