@@ -5,10 +5,10 @@ using namespace std;
 
 /*
     Event class
-    
+
     The Event class tracks a specific event for pushing into the priority
     queue.
-    
+
     Modifications:
       - Added the static "Null event" property - DTF
 
@@ -16,11 +16,11 @@ using namespace std;
     Date:   4/11/17
 */
 class Event {
-private: 
-	int eventNum;
-	int eventValue;
-	int time;
-	int wireNum;
+private:
+   int eventNum;
+   int eventValue;
+   int time;
+   int wireNum;
 public:
 
    /*
@@ -28,24 +28,24 @@ public:
    */
    static const Event NULL_EVT;
 
-	//Constructors
-	Event(int eventNumVal, int eventVal, int timeVal, int wireNumVal) :
-		eventNum(eventNumVal), eventValue(eventVal), time(timeVal), wireNum(wireNumVal) {}
+   //Constructors
+   Event(int eventNumVal, int eventVal, int timeVal, int wireNumVal) :
+      eventNum(eventNumVal), eventValue(eventVal), time(timeVal), wireNum(wireNumVal) {}
 
-	//Less-than operator so that the priority que can proplerly sort Even objects:
-	friend bool operator<(const Event& firstEvent, const Event& secondEvent);
+   //Less-than operator so that the priority que can proplerly sort Even objects:
+   friend bool operator<(const Event& firstEvent, const Event& secondEvent);
 
-	//Getter functions
-	int getEventNum() const;
-	int getEventValue() const;
-	int getTime() const;
-	int getWireNum() const;
+   //Getter functions
+   int getEventNum() const;
+   int getEventValue() const;
+   int getTime() const;
+   int getWireNum() const;
 
-	//Setter functions, do we need these?
-	void setEventNum(int eventNumVal);
-	void setEventValue(int eventVal);
-	void setTime(int timeVal);
-	void setWireNum(int wireNumVal);
+   //Setter functions, do we need these?
+   void setEventNum(int eventNumVal);
+   void setEventValue(int eventVal);
+   void setTime(int timeVal);
+   void setWireNum(int wireNumVal);
 };
 
 #endif // !EVENT_H

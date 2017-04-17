@@ -9,10 +9,10 @@ class Gate;
 
 /*
     Wire class
-    
+
     The Wire class contains the state and name of a specific Wire.
     It is used to propogate a value through the circuit.
-    
+
     Modifications:
       - Corrected type of history from char to short - DTF
 
@@ -21,28 +21,28 @@ class Gate;
 */
 class Wire {
 private:
-	string name;
-	short state;
-	vector <Gate*> drives;
-	vector <short> history;
+   string name;
+   short state;
+   vector <Gate*> drives;
+   vector <short> history;
 public:
-	//Define a constant for the undefined value for wire objects
-	const static int UNDEF;
-	
-	//Constructors:
-	Wire(string nameVal) : name(nameVal), state(UNDEF) {}
+   //Define a constant for the undefined value for wire objects
+   const static int UNDEF;
 
-	//Setter functions:
-	void addGate(Gate* gate);
-	void setName(string nameVal);
-	void setState(short stateVal);
+   //Constructors:
+   Wire(string nameVal) : name(nameVal), state(UNDEF) {}
 
-	//Getter functions:
-	string getName() const;
-	short getState() const;
-	//getters and setters for the vectors?
+   //Setter functions:
+   void addGate(Gate* gate);
+   void setName(string nameVal);
+   void setState(short stateVal);
 
-	//Destructor??
+   //Getter functions:
+   string getName() const;
+   short getState() const;
+   //getters and setters for the vectors?
+
+   //Destructor??
 };
 
 
