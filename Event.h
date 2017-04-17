@@ -23,11 +23,6 @@ private:
    int wireNum;
 public:
 
-   /*
-      "Null Event" property to use when no event is generated from the processing of an event.
-   */
-   static const Event NULL_EVT;
-
    //Constructors
    Event(int eventNumVal, int eventVal, int timeVal, int wireNumVal) :
       eventNum(eventNumVal), eventValue(eventVal), time(timeVal), wireNum(wireNumVal) {}
