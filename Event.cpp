@@ -1,5 +1,10 @@
 #include "Event.h"
 
+/*
+   The "Null Event": used to determine when no event has occured.
+*/
+const Event Event::NULL_EVT(-1, -1, -1, -1);
+
 bool operator<(const Event & firstEvent, const Event & secondEvent)
 {
 	//Check to see if the primary sort is ineffective. If
