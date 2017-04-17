@@ -38,8 +38,8 @@ public:
 
    /*
       This function propogates an event through the circuit. It updates all the components,
-      and then generates a new Event. The Event returned is the Event that was created 
-      by propogating the Event through the circuit. 
+      and then generates a new Event list, changing each output for the gates driven by the
+      wire targeted by the passed Event.  
 
       If the Event passed generates no new event, the "null event" is returned.
    */
