@@ -21,7 +21,7 @@ Gate::Gate(Wire* inputA, Wire* inputB, Wire* out, GateType t, short d)
 */
 bool Gate::isOutputChanging()
 {
-   return getOutput() != output->getState();
+   return calculateOutput() != output->getState();
 }
 
 /*
@@ -29,7 +29,7 @@ bool Gate::isOutputChanging()
    returns 0 if the output of this gate should be false, 1 if it should be true
    and Wire::UNDEF (3) if the value is undefined.
 */
-short Gate::getOutput()
+short Gate::calculateOutput()
 {
 
    short a   = firstInput->getState();
@@ -132,7 +132,7 @@ short Gate::getOutput()
 */
 void Gate::applyOutput()
 {
-   output->setState(getOutput());
+   output->setState(calculateOutput());
 }
 
 Wire* Gate::getFirstInput() const

@@ -59,7 +59,7 @@ public:
       Performs the logical operation required by this Gate and returns the correct output of
       the Gate under the current condition of the input wires.
    */
-   short getOutput();
+   short calculateOutput();
 
    /*
       Applies the result of getOutput() to the output wire.
