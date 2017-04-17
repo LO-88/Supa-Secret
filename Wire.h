@@ -13,6 +13,9 @@ class Gate;
     The Wire class contains the state and name of a specific Wire.
     It is used to propogate a value through the circuit.
     
+    Modifications:
+      - Corrected type of history from char to short - DTF
+
     Author: Logan O'Brien
     Date:   4/11/17
 */
@@ -21,7 +24,7 @@ private:
 	string name;
 	short state;
 	vector <Gate*> drives;
-	vector <char> history;
+	vector <short> history;
 public:
 	//Define a constant for the undefined value for wire objects
 	const static int UNDEF;

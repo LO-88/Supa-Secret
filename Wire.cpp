@@ -1,7 +1,15 @@
 #include "Wire.h"
+
+/*
+   Modifications:
+
+      - Changed the value of UNDEF to 3 so addition can be used 
+        for calculations of Gates' outputs - DTF
+*/
+
 //Initialize the static variable so that it
 //can be used as a sentinal value.
-const int Wire::UNDEF = -1;
+const int Wire::UNDEF = 3;
 
 void Wire::addGate(Gate * gate)
 {
