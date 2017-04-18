@@ -9,6 +9,9 @@
 		Questions:
 		1. UNDEF value?
 		2. mapHistory()?
+		
+		TODO:
+		Change the getDrives() function to get based on an index
 */
 
 //Initialize the static variable so that it
