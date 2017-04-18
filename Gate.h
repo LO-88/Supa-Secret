@@ -49,7 +49,7 @@ public:
    /*
       This object is used for ease of conversion between strings and GateTypes.
    */
-   const static map<string, GateType> gateTypeFactory;
+   const static std::map<string, GateType> gateTypeFactory;
 
    /*
       Constructs a new gate with the given inputs and outputs, of the specified GateType.
