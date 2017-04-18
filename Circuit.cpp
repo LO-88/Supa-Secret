@@ -47,3 +47,13 @@ void Circuit::addWire(Wire* newWire)
 {
    wires.push_back(newWire);
 }
+
+Gate* Circuit::getGate(int index) const
+{
+   return gates[index];
+}
+
+Wire* Circuit::getWire(int wireNumber) const
+{
+   return wires[wireNumber];
+}

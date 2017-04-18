@@ -21,6 +21,7 @@ class Event;
 
    Modifications:
       - Added the addGate and addWire functions - DTF
+      - Added the getGate and getWire functions - DTF
 
    Author: Daschel Fortner
    Date:   4/11/17
@@ -54,6 +55,16 @@ public:
       Adds a Wire to the circuit.
    */
    void addWire(Wire*);
+
+   /*
+      Gets the Gate associated with the passed index.
+   */
+   Gate* getGate(int) const;
+
+   /*
+      Gets the Wire associated with the passed wire number
+   */
+   Wire* getWire(int) const;
 
 private:
 
