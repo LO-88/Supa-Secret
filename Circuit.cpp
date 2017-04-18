@@ -48,6 +48,16 @@ void Circuit::addWire(Wire* newWire)
    wires.push_back(newWire);
 }
 
+void Circuit::addWire(Wire* newWire, int index)
+{
+   if (index > wires.size())
+   {
+      wires.resize(index);
+   }
+
+   wires[index] = newWire;
+}
+
 Gate* Circuit::getGate(int index) const
 {
    return gates[index];

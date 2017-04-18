@@ -57,6 +57,12 @@ public:
    void addWire(Wire*);
 
    /*
+      Adds a Wire to the circuit at the specific index. If necessary, the vector is resized
+      to accomodate the new Wire.
+   */
+   void addWire(Wire*, int);
+
+   /*
       Gets the Gate associated with the passed index.
    */
    Gate* getGate(int) const;
