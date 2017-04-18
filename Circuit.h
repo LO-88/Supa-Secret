@@ -19,6 +19,9 @@ class Event;
    The circuit class manages all the components of a circuit and handles the processing
    of events.
 
+   Modifications:
+      - Added the addGate and addWire functions - DTF
+
    Author: Daschel Fortner
    Date:   4/11/17
 
@@ -35,12 +38,22 @@ public:
 
    /*
       This function propogates an event through the circuit. It updates all the components,
-      and then generates a new Event. The Event returned is the Event that was created 
-      by propogating the Event through the circuit. 
+      and then generates a new Event list, changing each output for the gates driven by the
+      wire targeted by the passed Event.  
 
-      WARNING: if the passed Event generates no new Event, null is returned
+      If the Event passed generates no new event, the "null event" is returned.
    */
-   Event processEvent(const Event&);
+   vector<Event*> processEvent(const Event&);
+
+   /*
+      Adds a Gate to the circuit.
+   */
+   void addGate(Gate*);
+
+   /*
+      Adds a Wire to the circuit.
+   */
+   void addWire(Wire*);
 
 private:
 

@@ -32,10 +32,10 @@ public:
    */
    enum GateType
    {
-      NOT,
-      AND, 
+      AND,
       OR,
       XOR,
+      NOT,
       NAND,
       NOR,
       XNOR
@@ -56,10 +56,15 @@ public:
    bool isOutputChanging();
 
    /*
-      Performs the necessary logical operations on the input wires and changes the state 
-      of the output wire to reflect the new output.
+      Performs the logical operation required by this Gate and returns the correct output of
+      the Gate under the current condition of the input wires.
    */
-   void generateOutput();
+   short calculateOutput();
+
+   /*
+      Applies the result of getOutput() to the output wire.
+   */
+   void applyOutput();
 
    // Getters
    // Wires
