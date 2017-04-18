@@ -1,6 +1,21 @@
 #include "Gate.h"
 #include "Wire.h"
 
+/*
+   Map each string value to its corresponding GateType so that the parsing of 
+   the file can be greatly simplified.
+*/
+const map<string, Gate::GateType> Gate::gateTypeFactory =
+{
+   { "AND" , Gate::AND  },
+   { "OR"  , Gate::OR   },
+   { "XOR" , Gate::XOR  },
+   { "NOT" , Gate::NOT  },
+   { "NAND", Gate::NAND },
+   { "NOR" , Gate::NOR  },
+   { "XNOR", Gate::XNOR }
+};
+
 Gate::Gate(Wire* inputA, Wire* inputB, Wire* out, GateType t, short d)
 {
    firstInput  = inputA;

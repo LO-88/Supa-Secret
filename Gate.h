@@ -1,6 +1,8 @@
 #ifndef GATE_H
 #define GATE_H
 
+#include <map>
+
 /*
    Forward declaration:
 
@@ -43,6 +45,11 @@ public:
       NOR,
       XNOR
    };
+
+   /*
+      This object is used for ease of conversion between strings and GateTypes.
+   */
+   const static map<string, GateType> gateTypeFactory;
 
    /*
       Constructs a new gate with the given inputs and outputs, of the specified GateType.
