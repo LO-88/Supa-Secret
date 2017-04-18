@@ -5,6 +5,10 @@
 
       - Changed the value of UNDEF to 3 so addition can be used
         for calculations of Gates' outputs - DTF
+
+		Questions:
+		1. UNDEF value?
+		2. mapHistory()?
 */
 
 //Initialize the static variable so that it
