@@ -10,6 +10,9 @@ using namespace std;
 /*
     Apparently he's fine with us leaking memory all over the place.
 */
+/*
+   Dr Shomper told me he wants this done by tomorrow night
+*/
 void parseCircuit(ifstream& in, const Circuit& c)
 {
 	string inputString;

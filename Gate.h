@@ -14,6 +14,9 @@ class Wire;
    This class simulates Gate logic. It contains the necessary functions for
    gate calculation as well as an enumeration for the Gate Type. 
 
+   Note:
+      - No need for setters in this class
+
    Author: Daschel Fortner
    Date:   4/11/17
 

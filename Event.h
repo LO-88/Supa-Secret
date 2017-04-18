@@ -12,6 +12,9 @@ using namespace std;
     Modifications:
       - Added the static "Null event" property - DTF
 
+   Note:
+      - No need for setters in this class
+
     Author: Logan O'Brien
     Date:   4/11/17
 */
