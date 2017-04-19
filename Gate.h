@@ -16,8 +16,10 @@ class Wire;
    This class simulates Gate logic. It contains the necessary functions for
    gate calculation as well as an enumeration for the Gate Type. 
 
-   Note:
-      - No need for setters in this class
+   Modifications:
+
+      - Changed delay from short to int. - DTF
+      - Removed mutator functions - DTF
 
    Author: Daschel Fortner
    Date:   4/11/17
@@ -49,7 +51,7 @@ public:
    /*
       This object is used for ease of conversion between strings and GateTypes.
    */
-   const static std::map<string, GateType> gateTypeFactory;
+   const static std::map<std::string, GateType> gateTypeFactory;
 
    /*
       Constructs a new gate with the given inputs and outputs, of the specified GateType.
@@ -86,21 +88,7 @@ public:
    GateType getType() const;
 
    // Delay
-   short getDelay() const;
-
-   // Setters
-   // Wires
-   void setFirstInput(Wire*);
-   void setSecondInput(Wire*);
-   void setOutput(Wire*);
-
-   // GateType
-   void setType(GateType);
-
-   // Delay
-   void setDelay(short);
-
-   ~Gate();
+   int getDelay() const;
 
 private:
 
@@ -113,7 +101,7 @@ private:
    GateType type;
 
    // The delay for this gate in nanoseconds
-   short    delay;
+   int      delay;
 
 };
 

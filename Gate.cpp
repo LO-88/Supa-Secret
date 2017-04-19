@@ -170,43 +170,7 @@ Gate::GateType Gate::getType() const
    return type;
 }
 
-short Gate::getDelay() const
+int Gate::getDelay() const
 {
    return delay;
 }
-
-void Gate::setFirstInput(Wire* in)
-{
-   delete firstInput;
-   firstInput = in;
-}
-
-void Gate::setSecondInput(Wire* in)
-{
-   delete secondInput;
-   secondInput = in;
-}
-
-void Gate::setOutput(Wire* out)
-{
-   delete output;
-   output = out;
-}
-
-void Gate::setType(GateType t)
-{
-   type = t;
-}
-
-void Gate::setDelay(short d)
-{
-   delay = d;
-}
-
-Gate::~Gate()
-{
-   delete firstInput;
-   delete secondInput;
-   delete output;
-}
-
