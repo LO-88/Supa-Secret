@@ -72,6 +72,12 @@ public:
    */
    Wire* getWire(int) const;
 
+   /*
+      Gets the Wire associated with the passed Wire name.
+      WARNING: if no Wire is found with this name, nullptr is returned.
+   */
+   Wire* getWire(string) const;
+
 private:
 
    /*
