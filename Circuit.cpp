@@ -72,7 +72,7 @@ Wire* Circuit::getWire(int wireNumber) const
 
 Wire* Circuit::getWire(string name) const
 {
-   for (int i = 0; i < wires.size(); i++)
+   for (int i = 1; i < wires.size(); i++)
    {
       if (wires[i]->getName() == name)
       {
