@@ -44,7 +44,7 @@ public:
 
       If the Event passed generates no new event, the "null event" is returned.
    */
-   //vector<Event*> processEvent(const Event&);
+   std::vector<Event*> processEvent(const Event&);
 
    /*
       Adds a Gate to the circuit.

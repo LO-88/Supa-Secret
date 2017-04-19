@@ -6,6 +6,8 @@
 
 Circuit::Circuit()
 {
+   // Add the null element so that the wire numbers correspond to the index.
+   wires.push_back(nullptr);
 }
 
 vector<Event*> Circuit::processEvent(const Event& currEvt)
