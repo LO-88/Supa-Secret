@@ -6,6 +6,7 @@
 #include "Circuit.h"
 #include "Wire.h"
 #include "Gate.h"
+#include "Event.h"
 
 using namespace std;
 
@@ -91,9 +92,35 @@ void parseCircuit(ifstream& in, Circuit& c)
 
 }
 
-void parseVector(ifstream& in, const priority_queue<Event*>& eventContainer)
+void parseVector(ifstream& in, priority_queue<Event*>& eventContainer, const Circuit& c)
 {
-   
+   // Read in the first two tokens of the file
+   string next;
+
+   in >> next;
+   in >> next;
+
+   // Begin the file-reading loop
+   while (in >> next)
+   {
+      // Right now next should equal either INPUT or OUTPUT (I think)
+      // We have read the first token of an Event definition
+      // For the initial parsing, the event number will just be the size of the
+      // queue (0, 1, 2, etc)
+      int eventNumber = eventContainer.size();
+
+      // Get all the data tokens
+      string wireName;
+      int    time;
+      short  value;
+
+      in >> wireName;
+      in >> time;
+      in >> value;
+
+      // Put the new event on the queue
+      eventContainer.push(new Event(eventNumber, value, time, c.getWire(wireName)->getWireNumber()));
+   }
 }
 
 void runSimulation(const Circuit& c)
@@ -108,6 +135,8 @@ void generateOutput(const Circuit& c)
 
 int main()
 {
+   
+   priority_queue<Event*> events;
 
    Circuit c;
 
