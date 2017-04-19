@@ -24,10 +24,9 @@ void parseCircuit(ifstream& in, Circuit& c)
 	in >> inputString;
 	in >> inputString;
 
-   while (!in.eof())
+   // Do it this way so we know when we're done.
+   while (in >> inputString)
    {
-	   //Check if there is another line??? If there is:
-      in >> inputString;
 
 	   if (inputString == "INPUT" || inputString == "OUTPUT") {
 		   //Skip the letter. We don't need it do we?
@@ -50,16 +49,20 @@ void parseCircuit(ifstream& in, Circuit& c)
 		   //or use a switch statement based off of the first character of the gate. For the case that is 'N', 
 		   //then use if-else statements to determine which one of the gates that begin with an "N" it is.
 
-         string type;
-         int    delay;
-         int    inputA, inputB;
+         // First reading in is the gate type, don't read in a new one
+
+         string type(inputString);
+
+         string delayWithNS;
+         int    delay, inputA, inputB;
          int    output;
 
-         cin >> type;
-         cin >> delay;
-         cin >> inputA;
-         cin >> inputB;
-         cin >> output;
+         in >> delayWithNS;
+         delay = stoi(delayWithNS);
+
+         in >> inputA;
+         in >> inputB;
+         in >> output;
 
          /*
             Check for internal wires
@@ -90,7 +93,7 @@ void parseCircuit(ifstream& in, Circuit& c)
 
 void parseVector(ifstream& in, const priority_queue<Event*>& eventContainer)
 {
-
+   
 }
 
 void runSimulation(const Circuit& c)
@@ -106,13 +109,14 @@ void generateOutput(const Circuit& c)
 int main()
 {
 
-   Circuit* c = new Circuit();
+   Circuit c;
 
    // Create the file stream
-   ifstream in("circuit0.txt");
+   ifstream in;
+   in.open("Supa-Secret/circuit0.txt");
 
    // Parse the circuit file
-   parseCircuit(in, *c);
+   parseCircuit(in, c);
 
 
    return 0;
