@@ -4,10 +4,11 @@ bool operator<(const Event & firstEvent, const Event & secondEvent)
 {
    //Check to see if the primary sort is ineffective. If
    //it is, use the event number as the secondary sort.
+   // We have to use greater than here to change the behavior of the priority queue.
    if (firstEvent.time == secondEvent.time) {
-      return firstEvent.eventNum < secondEvent.eventNum;
+      return firstEvent.eventNum > secondEvent.eventNum;
    }
-   else return firstEvent.time < secondEvent.time;
+   else return firstEvent.time > secondEvent.time;
 }
 
 int Event::getEventNum() const
