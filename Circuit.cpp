@@ -54,7 +54,7 @@ void Circuit::addWire(Wire* newWire, int index)
 {
    if (index > wires.size())
    {
-      wires.resize(index);
+      wires.resize(index + 1);
    }
 
    wires[index] = newWire;

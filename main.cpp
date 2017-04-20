@@ -41,7 +41,7 @@ void parseCircuit(ifstream& in, Circuit& c)
       //  in the circuit class. (Might be a good idea)
 	   //else if (inputString == "OUTPUT") {
 
-         c.addWire(new Wire(name, wireNum));
+         c.addWire(new Wire(name, wireNum), wireNum);
 
 	   }
 	   //else it is a gate
@@ -64,6 +64,13 @@ void parseCircuit(ifstream& in, Circuit& c)
          in >> inputA;
          in >> inputB;
          in >> output;
+
+
+         /*
+            TODO
+
+            We need to check for NOT gates
+         */
 
          /*
             Check for internal wires
@@ -103,7 +110,7 @@ void parseVector(ifstream& in, priority_queue<Event*>& eventContainer, const Cir
    // Begin the file-reading loop
    while (in >> next)
    {
-      // Right now next should equal either INPUT or OUTPUT (I think)
+      // Right now next should equal either INPUT or OUTPUT
       // We have read the first token of an Event definition
       // For the initial parsing, the event number will just be the size of the
       // queue (0, 1, 2, etc)
