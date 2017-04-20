@@ -21,6 +21,7 @@ class Event;
 
    Modifications:
       - Added the addGate and addWire functions - DTF
+      - Added the getGate and getWire functions - DTF
 
    Author: Daschel Fortner
    Date:   4/11/17
@@ -43,7 +44,7 @@ public:
 
       If the Event passed generates no new event, the "null event" is returned.
    */
-   vector<Event*> processEvent(const Event&);
+   std::vector<Event*> processEvent(const Event&);
 
    /*
       Adds a Gate to the circuit.
@@ -54,6 +55,28 @@ public:
       Adds a Wire to the circuit.
    */
    void addWire(Wire*);
+
+   /*
+      Adds a Wire to the circuit at the specific index. If necessary, the vector is resized
+      to accomodate the new Wire.
+   */
+   void addWire(Wire*, int);
+
+   /*
+      Gets the Gate associated with the passed index.
+   */
+   Gate* getGate(int) const;
+
+   /*
+      Gets the Wire associated with the passed wire number
+   */
+   Wire* getWire(int) const;
+
+   /*
+      Gets the Wire associated with the passed Wire name.
+      WARNING: if no Wire is found with this name, nullptr is returned.
+   */
+   Wire* getWire(std::string) const;
 
 private:
 

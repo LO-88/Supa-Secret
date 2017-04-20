@@ -6,6 +6,8 @@
 
 Circuit::Circuit()
 {
+   // Add the null element so that the wire numbers correspond to the index.
+   wires.push_back(nullptr);
 }
 
 vector<Event*> Circuit::processEvent(const Event& currEvt)
@@ -46,4 +48,37 @@ void Circuit::addGate(Gate* newGate)
 void Circuit::addWire(Wire* newWire)
 {
    wires.push_back(newWire);
+}
+
+void Circuit::addWire(Wire* newWire, int index)
+{
+   if (index > wires.size())
+   {
+      wires.resize(index);
+   }
+
+   wires[index] = newWire;
+}
+
+Gate* Circuit::getGate(int index) const
+{
+   return gates[index];
+}
+
+Wire* Circuit::getWire(int wireNumber) const
+{
+   return wires[wireNumber];
+}
+
+Wire* Circuit::getWire(string name) const
+{
+   for (int i = 1; i < wires.size(); i++)
+   {
+      if (wires[i]->getName() == name)
+      {
+         return wires[i];
+      }
+   }
+
+   return nullptr;
 }
