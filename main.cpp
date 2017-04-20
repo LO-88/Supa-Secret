@@ -118,8 +118,22 @@ void parseVector(ifstream& in, priority_queue<Event*>& eventContainer, const Cir
       in >> time;
       in >> value;
 
+      // Convert the Name to a number
+      Wire* w = c.getWire(wireName);
+      int   wireNum;
+
+      // Skip wires that don't exist
+      if (w == nullptr)
+      {
+         continue;
+      }
+      else
+      {
+         wireNum = w->getWireNumber();
+      }
+
       // Put the new event on the queue
-      eventContainer.push(new Event(eventNumber, value, time, c.getWire(wireName)->getWireNumber()));
+      eventContainer.push(new Event(eventNumber, value, time, wireNum));
    }
 }
 
@@ -140,12 +154,15 @@ int main()
 
    Circuit c;
 
-   // Create the file stream
-   ifstream in;
-   in.open("Supa-Secret/circuit0.txt");
+   // Create the file streams
+   ifstream circuitInput("Supa-Secret/circuit0.txt");
+   ifstream vectorInput("Supa-Secret/circuit0_vector.txt");
 
    // Parse the circuit file
-   parseCircuit(in, c);
+   parseCircuit(circuitInput, c);
+
+   // Parse the vector file
+   parseVector(vectorInput, events, c);
 
 
    return 0;
