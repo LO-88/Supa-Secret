@@ -99,7 +99,7 @@ void parseCircuit(ifstream& in, Circuit& c)
 
 }
 
-void parseVector(ifstream& in, priority_queue<Event*>& eventContainer, const Circuit& c)
+void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circuit& c)
 {
    // Read in the first two tokens of the file
    string next;
@@ -140,7 +140,7 @@ void parseVector(ifstream& in, priority_queue<Event*>& eventContainer, const Cir
       }
 
       // Put the new event on the queue
-      eventContainer.push(new Event(eventNumber, value, time, wireNum));
+      eventContainer.push(Event(eventNumber, value, time, wireNum));
    }
 }
 
@@ -157,7 +157,7 @@ void generateOutput(const Circuit& c)
 int main()
 {
    
-   priority_queue<Event*> events;
+   priority_queue<Event> events;
 
    Circuit c;
 
