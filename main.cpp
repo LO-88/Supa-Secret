@@ -144,9 +144,12 @@ void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circ
    }
 }
 
-void runSimulation(const Circuit& c)
+void runSimulation(Circuit& c, priority_queue <Event> e)
 {
-
+	//while event que isn't empty
+		//remove top event and proccess event. Than function returns a vector of events.
+		//Check if the wire in each event is already scheduled to change before this time.
+		//e.push(event needed).
 }
 
 void generateOutput(const Circuit& c)
