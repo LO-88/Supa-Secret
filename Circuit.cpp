@@ -10,30 +10,33 @@ Circuit::Circuit()
    wires.push_back(nullptr);
 }
 
-vector<Event*> Circuit::processEvent(const Event& currEvt)
+vector<Event> Circuit::processEvent(const Event& currEvt)
 {
 
-   vector<Event*> newEvents;
+   vector<Event> newEvents;
+
+   // Get the Wire referenced by the passed Event
+   Wire* eventWire = wires[currEvt.getWireNum()];
 
    // Set the new state of the wires
-   wires[currEvt.getWireNum()]->setState(currEvt.getEventValue());
+   eventWire->setState(currEvt.getEventValue());
 
-   vector<Gate*> drivenGates = wires[currEvt.getWireNum()]->getGates();
+   vector<Gate*> drivenGates = eventWire->getGates();
 
    // Recalculate the output for the gates driven by this wire
    for (auto i = drivenGates.begin(); i != drivenGates.end(); i++)
    {
       Gate* iGate = *i;
-      iGate->applyOutput();
 
       // Make sure the output of the Gate has changed
       if (iGate->isOutputChanging())
       {
-         // Create a new event for the change in output
-         Event* e = new Event(currEvt.getEventNum() + 1, iGate->calculateOutput(), 
-                              currEvt.getTime() + iGate->getDelay(), iGate->getOutput()->getWireNumber());
+         // Change the output of the Gate
+         iGate->applyOutput();
+        
          // Add the event to the list of generated events
-         newEvents.push_back(e);
+         newEvents.push_back(Event(currEvt.getEventNum() + 1, iGate->calculateOutput(),
+                                   currEvt.getTime() + iGate->getDelay(), iGate->getOutput()->getWireNumber()));
       }
    }
 
