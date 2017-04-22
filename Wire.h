@@ -28,7 +28,7 @@ private:
    short state;
    short wireNum;
    vector <Gate*> drives;
-   vector <short> history;
+   vector <pair<char, int>> history;
 public:
    //Define a constant for the undefined value for wire objects
    const static int UNDEF;
@@ -41,7 +41,7 @@ public:
       passed exceeds the length of the vector, the current state of the wire is added
       to the history until the time of reached, and then the new state is added.
    */
-   void mapHistory(int time, short state);
+   void addHistory(int time, short state);
 
    //Setter functions:
    void addGate(Gate* gate);

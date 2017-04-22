@@ -18,17 +18,14 @@
 //can be used as a sentinal value.
 const int Wire::UNDEF = 3;
 
-void Wire::mapHistory(int time, short state)
+void Wire::addHistory(int time, short state)
 {
-   int   prevStateIndex = history.size() - 1;
-   short prevState      = history[prevStateIndex];
-     
-   for (int i = 0; i < (time - prevStateIndex); i++)
-   {
-      history.push_back(prevState);
-   }
+	//Convert the state to a char value
+	switch state{
+	case: wire::UNDEF
+	}
 
-   history.push_back(state);
+	history.push_back()
 }
 
 void Wire::addGate(Gate * gate)
