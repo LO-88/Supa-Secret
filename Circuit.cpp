@@ -35,8 +35,8 @@ vector<Event> Circuit::processEvent(const Event& currEvt)
          iGate->applyOutput();
         
          // Add the event to the list of generated events
-         newEvents.push_back(Event(currEvt.getEventNum() + 1, iGate->calculateOutput(),
-                                   currEvt.getTime() + iGate->getDelay(), iGate->getOutput()->getWireNumber()));
+         newEvents.push_back(Event(iGate->calculateOutput(), currEvt.getTime() + iGate->getDelay(),
+                                   iGate->getOutput()->getWireNumber()));
       }
    }
 

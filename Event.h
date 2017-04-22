@@ -24,11 +24,14 @@ private:
    int eventValue;
    int time;
    int wireNum;
+
+   // Keeps track of the total number of events in existence
+   static int numOfEvents;
+
 public:
 
    //Constructors
-   Event(int eventNumVal, int eventVal, int timeVal, int wireNumVal) :
-      eventNum(eventNumVal), eventValue(eventVal), time(timeVal), wireNum(wireNumVal) {}
+   Event(int eventVal, int timeVal, int wireNumVal);
 
    //Less-than operator so that the priority que can proplerly sort Even objects:
    friend bool operator<(const Event& firstEvent, const Event& secondEvent);
@@ -39,11 +42,6 @@ public:
    int getTime() const;
    int getWireNum() const;
 
-   //Setter functions, do we need these?
-   void setEventNum(int eventNumVal);
-   void setEventValue(int eventVal);
-   void setTime(int timeVal);
-   void setWireNum(int wireNumVal);
 };
 
 #endif // !EVENT_H
