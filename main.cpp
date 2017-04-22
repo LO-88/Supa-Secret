@@ -2,6 +2,7 @@
 #include <fstream>
 #include <queue>
 #include <string>
+#include <vector>
 
 #include "Circuit.h"
 #include "Wire.h"
@@ -146,10 +147,47 @@ void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circ
 
 void runSimulation(Circuit& c, priority_queue <Event> e)
 {
+	bool isDuplicate = false;
 	//while event que isn't empty
+	while (!e.empty()) {
 		//remove top event and proccess event. Than function returns a vector of events.
+		Event current = e.top();
+		e.pop();
+		vector <Event> newEvents = c.processEvent(current);//								Does this assignment work? We didn't write an assignment
+		//																					operator in the Event class. Does it still work?
 		//Check if the wire in each event is already scheduled to change before this time.
-		//e.push(event needed).
+		for (auto i = newEvents.begin(); i != newEvents.end(); i++) {
+
+			//Make a copy of the que so that I can loop through it.
+			priority_queue <Event> copy = e;
+			//Determine which wire is scheduled to change.
+			//loop through the que searching for an Event with the same wire number while newEvents[i] < the current event from the que.
+			while (newEvents[i] < copy.top() | copy.empty() != true) {						//I'm not sure why I can't access elements of the vector like this.
+				//Check if the Events are scheduled to change the same wire
+				if (newEvents[i].getWireNum() == (copy.top()).getWireNum()) {
+					//Check if they have the same value
+					if (newEvents[i].getEventValuen() == copy.top().getEventValue()) {
+						isDuplicate = true;
+					}
+					//If the two events have different values than it is not a duplicate.
+					else {
+						isDuplicate = false;
+					}
+				}
+				//Remove that object from the copy que
+				copy.pop();
+			}
+			//If the event isn't a duplicate add it to the que, 
+			//if it is, than ignore it.
+			if (isDuplicate == false) {
+				e.push(newEvents[i]);
+			}
+
+			//Is it better to loop in reverse searching backwards? 
+			//than I could see if it reaches an equivalent event or a contradictory event first.
+			//It is organized smallest time to largest. 
+		}
+	}
 }
 
 void generateOutput(const Circuit& c)
@@ -174,6 +212,8 @@ int main()
    // Parse the vector file
    parseVector(vectorInput, events, c);
 
+   //Run the simulation
+   runSimulation(c, events);
 
    return 0;
 }
