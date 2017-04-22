@@ -141,7 +141,7 @@ void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circ
       }
 
       // Put the new event on the queue
-      eventContainer.push(Event(eventNumber, value, time, wireNum));
+      eventContainer.push(Event(value, time, wireNum));
    }
 }
 
@@ -162,26 +162,29 @@ void runSimulation(Circuit& c, priority_queue <Event> e)
 			priority_queue <Event> copy = e;
 			//Determine which wire is scheduled to change.
 			//loop through the que searching for an Event with the same wire number while newEvents[i] < the current event from the que.
-			while (newEvents[i] < copy.top() | copy.empty() != true) {						//I'm not sure why I can't access elements of the vector like this.
+			while (i->getTime() >= copy.top().getTime() && !copy.empty()) {						//I'm not sure why I can't access elements of the vector like this.
 				//Check if the Events are scheduled to change the same wire
-				if (newEvents[i].getWireNum() == (copy.top()).getWireNum()) {
+				if (i->getWireNum() == copy.top().getWireNum()) {
 					//Check if they have the same value
-					if (newEvents[i].getEventValuen() == copy.top().getEventValue()) {
-						isDuplicate = true;
+					if (i->getEventValue() == copy.top().getEventValue()) {
+						//isDuplicate = true;
+                  continue;
 					}
 					//If the two events have different values than it is not a duplicate.
 					else {
-						isDuplicate = false;
+						//isDuplicate = false;
+                  e.push(*i);
 					}
 				}
+
 				//Remove that object from the copy que
 				copy.pop();
 			}
 			//If the event isn't a duplicate add it to the que, 
 			//if it is, than ignore it.
-			if (isDuplicate == false) {
+			/*if (isDuplicate == false) {
 				e.push(newEvents[i]);
-			}
+			}*/
 
 			//Is it better to loop in reverse searching backwards? 
 			//than I could see if it reaches an equivalent event or a contradictory event first.

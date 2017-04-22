@@ -1,5 +1,10 @@
 #include "Event.h"
 
+/*
+   Keeps track of the number of events
+*/
+int Event::numOfEvents = 0;
+
 bool operator<(const Event & firstEvent, const Event & secondEvent)
 {
    //Check to see if the primary sort is ineffective. If
@@ -9,6 +14,12 @@ bool operator<(const Event & firstEvent, const Event & secondEvent)
       return firstEvent.eventNum > secondEvent.eventNum;
    }
    else return firstEvent.time > secondEvent.time;
+}
+
+Event::Event(int eventVal, int timeVal, int wireNumVal) :
+   eventNum(numOfEvents), eventValue(eventVal), time(timeVal), wireNum(wireNumVal)
+{
+   numOfEvents++;
 }
 
 int Event::getEventNum() const
@@ -30,25 +41,3 @@ int Event::getWireNum() const
 {
    return wireNum;
 }
-
-void Event::setEventNum(int eventNumVal)
-{
-   eventNum = eventNumVal;
-}
-
-void Event::setEventValue(int eventVal)
-{
-   eventValue = eventVal;
-}
-
-void Event::setTime(int timeVal)
-{
-   time = timeVal;
-}
-
-void Event::setWireNum(int wireNumVal)
-{
-   wireNum = wireNumVal;
-}
-
-
