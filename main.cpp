@@ -217,7 +217,7 @@ int main()
    ifstream circuitInput("Supa-Secret/circuit1.txt");
    ifstream vectorInput("Supa-Secret/circuit1_v.txt");
 
-   if (!circuitInput.is_open())
+   if (!vectorInput.is_open())
    {
 	   cout << "Plz Work";
    }
