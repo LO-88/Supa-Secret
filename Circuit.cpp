@@ -20,6 +20,7 @@ vector<Event> Circuit::processEvent(const Event& currEvt)
 
    // Set the new state of the wires
    eventWire->setState(currEvt.getEventValue());
+   eventWire->addHistory(currEvt.getTime(), currEvt.getEventValue());
 
    vector<Gate*> drivenGates = eventWire->getGates();
 
@@ -84,4 +85,49 @@ Wire* Circuit::getWire(string name) const
    }
 
    return nullptr;
+}
+
+string Circuit::generateWireTrace(int simLen) const
+{
+	string trace;
+	int length;
+	for (auto i = ++wires.begin(); i != wires.end(); i++) {
+		Wire* currWire = *i;
+		//Ensure that the wire is not an internal one
+		if (currWire->getName() != "INT") {
+
+			// Add the name of the wire to the trace
+			string name = currWire->getName() + " ";
+			string data;
+			
+			// Make sure there is history for this Wire. If there is not, make it
+			// undefined for the duration of the simulation.
+			if (currWire->getNumHistoryItems() == 0) {
+				data = string(simLen, 'X');
+				trace += name + data;
+				continue;
+			}
+
+			// Create the part of the string from the undefined portion
+			// to the first event
+			length = currWire->getHistory(0).second;
+			data = string(length, 'X');
+
+			// Go through each history item and add its value to the trace
+			for (int i = 1; i < currWire->getNumHistoryItems(); i++) {
+				int traceLen = currWire->getHistory(i).second - currWire->getHistory(i - 1).second;
+				data += string(traceLen, currWire->getHistory(i - 1).first);
+			}
+
+			//Add the remainder of the wire trace to the data variable
+			length = simLen - data.length() + 1;
+			int index = currWire->getNumHistoryItems() - 1;
+			data += string(length, currWire->getHistory(index).first);
+
+			//Construct the trace of the wire
+			trace += name + data + "\n";
+		}
+	}
+
+	return trace;
 }

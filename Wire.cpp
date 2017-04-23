@@ -18,17 +18,20 @@
 //can be used as a sentinal value.
 const int Wire::UNDEF = 3;
 
-void Wire::mapHistory(int time, short state)
+void Wire::addHistory(int time, short state)
 {
-   int   prevStateIndex = history.size() - 1;
-   short prevState      = history[prevStateIndex];
-     
-   for (int i = 0; i < (time - prevStateIndex); i++)
-   {
-      history.push_back(prevState);
-   }
-
-   history.push_back(state);
+	//Convert the state to a char value
+	switch (state){
+	case Wire::UNDEF:
+		history.push_back(pair<char, int>('X', time));
+		break;
+	case 0:
+		history.push_back(pair<char, int>('_', time));
+		break;
+	case 1:
+		history.push_back(pair<char, int>('-', time));
+		break;
+	}
 }
 
 void Wire::addGate(Gate * gate)
@@ -69,4 +72,14 @@ short Wire::getWireNumber() const
 vector<Gate*> Wire::getGates() const
 {
    return drives;
+}
+
+pair<char, int> Wire::getHistory(int index) const
+{
+	return history[index];
+}
+
+int Wire::getNumHistoryItems() const
+{
+	return history.size();
 }
