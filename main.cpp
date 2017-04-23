@@ -214,10 +214,10 @@ int main()
    Circuit c;
 
    // Create the file streams
-   ifstream circuitInput("Supa-Secret/circuit0.txt");
-   ifstream vectorInput("Supa-Secret/circuit0_vector.txt");
+   ifstream circuitInput("Supa-Secret/circuit1.txt");
+   ifstream vectorInput("Supa-Secret/circuit1_v.txt");
 
-   if (!circuitInput.is_open())
+   if (!vectorInput.is_open())
    {
 	   cout << "Plz Work";
    }

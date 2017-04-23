@@ -78,7 +78,7 @@ Wire* Circuit::getWire(string name) const
 {
    for (int i = 1; i < wires.size(); i++)
    {
-      if (wires[i]->getName() == name)
+      if (wires[i] != nullptr && wires[i]->getName() == name)
       {
          return wires[i];
       }
@@ -94,7 +94,7 @@ string Circuit::generateWireTrace(int simLen) const
 	for (auto i = ++wires.begin(); i != wires.end(); i++) {
 		Wire* currWire = *i;
 		//Ensure that the wire is not an internal one
-		if (currWire->getName() != "INT") {
+		if (currWire != nullptr && currWire->getName() != "INT") {
 
 			// Add the name of the wire to the trace
 			string name = currWire->getName() + " ";
