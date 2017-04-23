@@ -160,31 +160,28 @@ void runSimulation(Circuit& c, priority_queue <Event> e)
 
 			//Make a copy of the que so that I can loop through it.
 			priority_queue <Event> copy = e;
+			bool isDuplicate = false;
 			//Determine which wire is scheduled to change.
 			//loop through the que searching for an Event with the same wire number while newEvents[i] < the current event from the que.
-			while (i->getTime() >= copy.top().getTime() && !copy.empty()) {						//I'm not sure why I can't access elements of the vector like this.
+			while (!copy.empty() && i->getTime() >= copy.top().getTime()) {						//I'm not sure why I can't access elements of the vector like this.
 				//Check if the Events are scheduled to change the same wire
 				if (i->getWireNum() == copy.top().getWireNum()) {
 					//Check if they have the same value
 					if (i->getEventValue() == copy.top().getEventValue()) {
-						//isDuplicate = true;
-                  continue;
-					}
-					//If the two events have different values than it is not a duplicate.
-					else {
-						//isDuplicate = false;
-                  e.push(*i);
+						isDuplicate = true;
+                        continue;
 					}
 				}
 
 				//Remove that object from the copy que
 				copy.pop();
 			}
+
 			//If the event isn't a duplicate add it to the que, 
 			//if it is, than ignore it.
-			/*if (isDuplicate == false) {
-				e.push(newEvents[i]);
-			}*/
+			if (!isDuplicate) {
+				e.push(*i);
+			}
 
 			//Is it better to loop in reverse searching backwards? 
 			//than I could see if it reaches an equivalent event or a contradictory event first.
@@ -195,7 +192,13 @@ void runSimulation(Circuit& c, priority_queue <Event> e)
 
 void generateOutput(const Circuit& c)
 {
+	string output = c.generateWireTrace(60);
 
+	//Print the wire trace
+	for (int i = 0; i < output.length(); i++)
+	{
+		cout << " " << output[i];
+	}
 }
 
 int main()
@@ -209,6 +212,11 @@ int main()
    ifstream circuitInput("Supa-Secret/circuit0.txt");
    ifstream vectorInput("Supa-Secret/circuit0_vector.txt");
 
+   if (!circuitInput.is_open())
+   {
+	   cout << "Plz Work";
+   }
+
    // Parse the circuit file
    parseCircuit(circuitInput, c);
 
@@ -217,6 +225,11 @@ int main()
 
    //Run the simulation
    runSimulation(c, events);
+
+   //Print the wire trace
+   generateOutput(c);
+
+   getline(cin, string());
 
    return 0;
 }

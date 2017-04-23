@@ -56,6 +56,9 @@ public:
 
    //getters and setters for the vectors
    vector<Gate*> getGates() const;
+   
+   pair<char, int> getHistory(int index) const;
+   int getNumHistoryItems() const;
 
    //Destructor??
 };

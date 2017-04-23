@@ -21,11 +21,17 @@ const int Wire::UNDEF = 3;
 void Wire::addHistory(int time, short state)
 {
 	//Convert the state to a char value
-	switch state{
-	case: wire::UNDEF
+	switch (state){
+	case Wire::UNDEF:
+		history.push_back(pair<char, int>('X', time));
+		break;
+	case 0:
+		history.push_back(pair<char, int>('_', time));
+		break;
+	case 1:
+		history.push_back(pair<char, int>('-', time));
+		break;
 	}
-
-	history.push_back()
 }
 
 void Wire::addGate(Gate * gate)
@@ -66,4 +72,14 @@ short Wire::getWireNumber() const
 vector<Gate*> Wire::getGates() const
 {
    return drives;
+}
+
+pair<char, int> Wire::getHistory(int index) const
+{
+	return history[index];
+}
+
+int Wire::getNumHistoryItems() const
+{
+	return history.size();
 }

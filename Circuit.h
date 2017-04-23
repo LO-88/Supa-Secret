@@ -76,6 +76,8 @@ public:
    */
    Wire* getWire(std::string) const;
 
+   //Creates the string used to print the wire trace in main().
+   std::string generateWireTrace(int simLen) const;
 private:
 
    /*
