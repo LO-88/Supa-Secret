@@ -145,13 +145,15 @@ void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circ
    }
 }
 
-void runSimulation(Circuit& c, priority_queue <Event> e)
+int runSimulation(Circuit& c, priority_queue <Event> e)
 {
 	bool isDuplicate = false;
+   int  runTime = 0;
 	//while event que isn't empty
-	while (!e.empty()) {
+	while (!e.empty() && runTime <= 60) {
 		//remove top event and proccess event. Than function returns a vector of events.
 		Event current = e.top();
+      runTime += current.getTime();
 		e.pop();
 		vector <Event> newEvents = c.processEvent(current);//								Does this assignment work? We didn't write an assignment
 		//																					operator in the Event class. Does it still work?
@@ -185,14 +187,17 @@ void runSimulation(Circuit& c, priority_queue <Event> e)
 
 			//Is it better to loop in reverse searching backwards? 
 			//than I could see if it reaches an equivalent event or a contradictory event first.
-			//It is organized smallest time to largest. 
+			//It is organized smallest time to largest
 		}
+
 	}
+
+   return runTime;
 }
 
-void generateOutput(const Circuit& c)
+void generateOutput(const Circuit& c, int time)
 {
-	string output = c.generateWireTrace(60);
+	string output = c.generateWireTrace(time);
 
 	//Print the wire trace
 	for (int i = 0; i < output.length(); i++)
@@ -224,10 +229,10 @@ int main()
    parseVector(vectorInput, events, c);
 
    //Run the simulation
-   runSimulation(c, events);
+   int time = runSimulation(c, events);
 
    //Print the wire trace
-   generateOutput(c);
+   generateOutput(c, time);
 
    getline(cin, string());
 
