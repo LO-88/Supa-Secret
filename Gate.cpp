@@ -25,8 +25,16 @@ Gate::Gate(Wire* inputA, Wire* inputB, Wire* out, GateType t, short d)
    delay       = d;
 
    firstInput->addGate(this);
-   secondInput->addGate(this);
+   if (secondInput != nullptr)
+   {
+      secondInput->addGate(this);
+   }
 }
+
+Gate::Gate(Wire* inputA, Wire* out, short d) : Gate(inputA, nullptr, out, Gate::NOT, d)
+{
+}
+
 
 /*
    Determines whether the current state of the wires even changes the output for 
@@ -47,9 +55,14 @@ bool Gate::isOutputChanging()
 short Gate::calculateOutput()
 {
 
-   short a   = firstInput->getState();
-   short b   = secondInput->getState();
-   short sum = a + b;
+   short a   = firstInput->getState(), b;
+   short sum = a;
+   if (type != Gate::NOT)
+   {
+      b   = secondInput->getState();
+      sum += b;
+   }
+
    short output;
 
    switch (type)

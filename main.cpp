@@ -3,6 +3,7 @@
 #include <queue>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "Circuit.h"
 #include "Wire.h"
@@ -56,16 +57,41 @@ void parseCircuit(ifstream& in, Circuit& c)
          string type(inputString);
 
          string delayWithNS;
-         int    delay, inputA, inputB;
-         int    output;
+         int    delay, wireOne, wireTwo;
 
          in >> delayWithNS;
          delay = stoi(delayWithNS);
 
-         in >> inputA;
-         in >> inputB;
-         in >> output;
+         in >> wireOne;
+         in >> wireTwo;
 
+         /*
+            Check for the existence of the two input wires. If they don't 
+            already exist, they are internal wires, so they need to be 
+            added still.
+         */
+         if (c.getWire(wireOne) == nullptr)
+         {
+            c.addWire(new Wire("INT", wireOne), wireOne);
+         }
+
+         if (c.getWire(wireTwo) == nullptr)
+         {
+            c.addWire(new Wire("INT", wireTwo), wireTwo);
+         }
+
+         /*
+            If the type is a NOT gate, there are only two wires to 
+            be read in.
+         */
+         if (type == "NOT")
+         {
+            c.addGate(new Gate(c.getWire(wireOne), c.getWire(wireTwo), delay));
+            continue;
+         }
+
+         int   output;
+         in >> output;
 
          /*
             TODO
@@ -74,26 +100,15 @@ void parseCircuit(ifstream& in, Circuit& c)
          */
 
          /*
-            Check for internal wires
-
-            I don't know if this will work, but I think it might.
+            Check whether the output wire exists, and add it if it doesn't.
          */
-         if (c.getWire(inputA) == nullptr)
-         {
-            c.addWire(new Wire("INT", inputA), inputA);
-         }
-
-         if (c.getWire(inputB) == nullptr)
-         {
-            c.addWire(new Wire("INT", inputB), inputB);
-         }
 
          if (c.getWire(output) == nullptr)
          {
             c.addWire(new Wire("INT", output), output);
          }
 
-         c.addGate(new Gate(c.getWire(inputA), c.getWire(inputB), c.getWire(output), Gate::gateTypeFactory.at(type), delay));
+         c.addGate(new Gate(c.getWire(wireOne), c.getWire(wireTwo), c.getWire(output), Gate::gateTypeFactory.at(type), delay));
 
 	   }
    }
@@ -145,7 +160,7 @@ void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circ
    }
 }
 
-int runSimulation(Circuit& c, priority_queue <Event> e)
+int runSimulation(Circuit& c, priority_queue <Event>& e)
 {
 	bool isDuplicate = false;
    int  runTime = 0;
@@ -153,8 +168,9 @@ int runSimulation(Circuit& c, priority_queue <Event> e)
 	while (!e.empty() && runTime <= 60) {
 		//remove top event and proccess event. Than function returns a vector of events.
 		Event current = e.top();
-      runTime += current.getTime();
+      runTime = current.getTime();
 		e.pop();
+      
 		vector <Event> newEvents = c.processEvent(current);//								Does this assignment work? We didn't write an assignment
 		//																					operator in the Event class. Does it still work?
 		//Check if the wire in each event is already scheduled to change before this time.
@@ -204,6 +220,13 @@ void generateOutput(const Circuit& c, int time)
 	{
 		cout << " " << output[i];
 	}
+
+   cout << "     ";
+   for (int i = 0; i <= time; i++)
+   {
+       cout << i;
+       cout << " ";
+   }
 }
 
 int main()
@@ -214,8 +237,8 @@ int main()
    Circuit c;
 
    // Create the file streams
-   ifstream circuitInput("Supa-Secret/circuit1.txt");
-   ifstream vectorInput("Supa-Secret/circuit1_v.txt");
+   ifstream circuitInput("Supa-Secret/circuit2.txt");
+   ifstream vectorInput("Supa-Secret/circuit2_v.txt");
 
    if (!vectorInput.is_open())
    {

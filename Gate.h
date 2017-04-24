@@ -60,6 +60,11 @@ public:
    Gate(Wire*, Wire*, Wire*, GateType, short);
 
    /*
+      Use this constructor for NOT Gates.
+   */
+   Gate(Wire*, Wire*, short);
+
+   /*
       Calculates whether this Gate should trigger an event. This function is used by the 
       Circuit class's processEvent() function to determine whether the change in inputs 
       should generate an output. This is done so the Circuit class can easily track changes
