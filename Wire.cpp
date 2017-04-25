@@ -39,19 +39,9 @@ void Wire::addGate(Gate * gate)
    drives.push_back(gate);
 }
 
-void Wire::setName(string nameVal)
-{
-   name = nameVal;
-}
-
 void Wire::setState(short stateVal)
 {
    state = stateVal;
-}
-
-void Wire::setWireNumber(short num)
-{
-   wireNum = num;
 }
 
 string Wire::getName() const
