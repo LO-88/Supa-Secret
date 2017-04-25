@@ -230,12 +230,41 @@ int main()
 {
    
    priority_queue<Event> events;
-
    Circuit c;
+   string input;
+   string secondTry;
+
+   //Recieve the file locations from the user
+   cout << "Please enter the name of the circuit input file.\n";
+   cin >> input;
 
    // Create the file streams
-   ifstream circuitInput("Supa-Secret/flipflop.txt");
-   ifstream vectorInput("Supa-Secret/flipflop_v.txt");
+   ifstream circuitInput(input + ".txt");
+   ifstream vectorInput(input + "_v.txt");
+
+   //Check if the files opened correctly
+   if (!circuitInput.is_open()) {
+	   cerr << "Error: the specified circuit file could not be opened.\n";
+	   cerr << "The file: " << input << ".txt could not be opened.\n";
+	   return 1;
+   }
+
+   if (!vectorInput.is_open())
+   {
+	   cerr << "Error: the specified vector file, " << input
+		   << ".txt, could not be opened.\n";
+	   cerr << "Please enter the name of the vector file\n";
+	   cin >> secondTry;
+
+	   //Attempt to open the file again
+	   ifstream vectorInput(secondTry + "_v.txt");
+
+	   if (!vectorInput.is_open()) {
+		   cerr << "Error: the specified circuit file could not be opened.\n";
+		   cerr << "The file: " << input << ".txt could not be opened.\n";
+		   return 2;
+	   }
+   }
 
    // Parse the circuit file
    parseCircuit(circuitInput, c);
