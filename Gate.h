@@ -83,6 +83,12 @@ public:
    */
    void applyOutput();
 
+   /*
+      Allows this Gate to track a scheduled output for additional comparision in the isOutputChanging()
+      function.
+   */
+   void scheduleOutput(short);
+
    // Getters
    // Wires
    Wire* getFirstInput()  const;
@@ -107,6 +113,13 @@ private:
 
    // The delay for this gate in nanoseconds
    int      delay;
+
+   /*
+      The output scheduled for this Gate. This value is used to track
+      when the output of the Gate is scheduled to change for use in the
+      isOutputChanging function.
+   */
+   short    scheduledOutput = -1;
 
 };
 

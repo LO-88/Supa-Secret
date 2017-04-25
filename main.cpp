@@ -39,9 +39,6 @@ void parseCircuit(ifstream& in, Circuit& c)
 
          in >> name;
          in >> wireNum;
-	   //} This one isn't necessary unless we differentiate between Input/Output wires
-      //  in the circuit class. (Might be a good idea)
-	   //else if (inputString == "OUTPUT") {
 
          c.addWire(new Wire(name, wireNum), wireNum);
 
@@ -70,12 +67,12 @@ void parseCircuit(ifstream& in, Circuit& c)
             already exist, they are internal wires, so they need to be 
             added still.
          */
-         if (c.getWire(wireOne) == nullptr)
+         if (c.getNumWires() <= wireOne || c.getWire(wireOne) == nullptr)
          {
             c.addWire(new Wire("INT", wireOne), wireOne);
          }
 
-         if (c.getWire(wireTwo) == nullptr)
+         if (c.getNumWires() <= wireTwo || c.getWire(wireTwo) == nullptr)
          {
             c.addWire(new Wire("INT", wireTwo), wireTwo);
          }
@@ -103,7 +100,7 @@ void parseCircuit(ifstream& in, Circuit& c)
             Check whether the output wire exists, and add it if it doesn't.
          */
 
-         if (c.getWire(output) == nullptr)
+         if (c.getNumWires() <= output || c.getWire(output) == nullptr)
          {
             c.addWire(new Wire("INT", output), output);
          }
@@ -133,13 +130,23 @@ void parseVector(ifstream& in, priority_queue<Event>& eventContainer, const Circ
       int eventNumber = eventContainer.size();
 
       // Get all the data tokens
-      string wireName;
+      string wireName, valueString;
       int    time;
       short  value;
 
       in >> wireName;
       in >> time;
-      in >> value;
+      in >> valueString;
+
+      // Check for undefined values
+      if (valueString == "X")
+      {
+         value = 3;
+      }
+      else
+      {
+         value = stoi(valueString);
+      }
 
       // Convert the Name to a number
       Wire* w = c.getWire(wireName);
@@ -165,7 +172,7 @@ int runSimulation(Circuit& c, priority_queue <Event>& e)
 	bool isDuplicate = false;
    int  runTime = 0;
 	//while event que isn't empty
-	while (!e.empty() && runTime <= 60) {
+	while (!e.empty() && (runTime < 60 || e.top().getTime() == 60)) {
 		//remove top event and proccess event. Than function returns a vector of events.
 		Event current = e.top();
       runTime = current.getTime();
@@ -187,7 +194,7 @@ int runSimulation(Circuit& c, priority_queue <Event>& e)
 					//Check if they have the same value
 					if (i->getEventValue() == copy.top().getEventValue()) {
 						isDuplicate = true;
-                        continue;
+                  break;
 					}
 				}
 
@@ -216,17 +223,7 @@ void generateOutput(const Circuit& c, int time)
 	string output = c.generateWireTrace(time);
 
 	//Print the wire trace
-	for (int i = 0; i < output.length(); i++)
-	{
-		cout << " " << output[i];
-	}
-
-   cout << "     ";
-   for (int i = 0; i <= time; i++)
-   {
-       cout << i;
-       cout << " ";
-   }
+   cout << output;
 }
 
 int main()
@@ -237,13 +234,8 @@ int main()
    Circuit c;
 
    // Create the file streams
-   ifstream circuitInput("Supa-Secret/circuit2.txt");
-   ifstream vectorInput("Supa-Secret/circuit2_v.txt");
-
-   if (!vectorInput.is_open())
-   {
-	   cout << "Plz Work";
-   }
+   ifstream circuitInput("Supa-Secret/flipflop.txt");
+   ifstream vectorInput("Supa-Secret/flipflop_v.txt");
 
    // Parse the circuit file
    parseCircuit(circuitInput, c);
