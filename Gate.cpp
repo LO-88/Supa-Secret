@@ -44,7 +44,9 @@ Gate::Gate(Wire* inputA, Wire* out, short d) : Gate(inputA, nullptr, out, Gate::
 */
 bool Gate::isOutputChanging()
 {
-   return calculateOutput() != output->getState();
+   short newOutput = calculateOutput();
+
+   return newOutput != output->getState() || (newOutput != scheduledOutput && scheduledOutput != -1);
 }
 
 /*
@@ -151,6 +153,14 @@ short Gate::calculateOutput()
       output ^= 1;
    }
 
+   /*
+      We have acheived the scheduled output, so we can now forget about it.
+   */
+   if (scheduledOutput == output)
+   {
+      scheduledOutput = -1;
+   }
+
    return output;
 
 }
@@ -161,6 +171,11 @@ short Gate::calculateOutput()
 void Gate::applyOutput()
 {
    output->setState(calculateOutput());
+}
+
+void Gate::scheduleOutput(short value)
+{
+   scheduledOutput = value;
 }
 
 Wire* Gate::getFirstInput() const

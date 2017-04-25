@@ -33,8 +33,9 @@ vector<Event> Circuit::processEvent(const Event& currEvt)
       if (iGate->isOutputChanging())
       {
          // Change the output of the Gate
-         iGate->applyOutput();
-        
+         //iGate->applyOutput();
+         iGate->scheduleOutput(currEvt.getEventValue());
+
          // Add the event to the list of generated events
          newEvents.push_back(Event(iGate->calculateOutput(), currEvt.getTime() + iGate->getDelay(),
                                    iGate->getOutput()->getWireNumber()));
@@ -85,6 +86,11 @@ Wire* Circuit::getWire(string name) const
    }
 
    return nullptr;
+}
+
+int Circuit::getNumWires() const
+{
+   return wires.size();
 }
 
 string Circuit::generateWireTrace(int simLen) const

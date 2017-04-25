@@ -76,8 +76,15 @@ public:
    */
    Wire* getWire(std::string) const;
 
+   /*
+      Gets the total number of Wires in the circuit.
+   */
+   int getNumWires() const;
+
    //Creates the string used to print the wire trace in main().
    std::string generateWireTrace(int simLen) const;
+
+
 private:
 
    /*
