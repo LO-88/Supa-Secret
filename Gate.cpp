@@ -46,7 +46,7 @@ bool Gate::isOutputChanging()
 {
    short newOutput = calculateOutput();
 
-   return newOutput != output->getState() || (newOutput != scheduledOutput && scheduledOutput != -1);
+   return newOutput != output->getState() || (scheduledOutput != -1 && newOutput != scheduledOutput);
 }
 
 /*
@@ -59,6 +59,8 @@ short Gate::calculateOutput()
 
    short a   = firstInput->getState(), b;
    short sum = a;
+
+   // Check for NOT gates so we don't blow up with a nullptr
    if (type != Gate::NOT)
    {
       b   = secondInput->getState();
@@ -81,13 +83,11 @@ short Gate::calculateOutput()
              return Wire::UNDEF;
          }
          
-         // Set the output to be the value of a, and get it ready to be notted
+         // Set the output to be the value of a, and get it ready to be complimented
          output = a;
 
          break;
 
-      // For both AND and NAND gates, set the logical output to be an AND. Later, this 
-      // function will NOT all the negated gates.
       case AND:
       case NAND:
 
@@ -98,13 +98,10 @@ short Gate::calculateOutput()
             return Wire::UNDEF;
          }
          
-         // This operation holds even if one of the values is undefined, because 0 & 3 is still
-         // zero.
          output = a & b;
 
          break;
 
-      // Perform the operation for either OR or NOR gates
       case OR:
       case NOR:
 
@@ -114,15 +111,7 @@ short Gate::calculateOutput()
             return Wire::UNDEF;
          }
          
-         /*
-            This output has to be adjusted in case we get an UNDEF (11) and a 1. If we perform a 
-            bitwise OR on 11 (3) and 1, we will get back 11. To correct this, we need to kill the 
-            leftmost bit, which can be acheived by performing a bitwise AND with 01. Thus, 11 | 1 
-            yields 11, but 11 & 01 yields 1, which is what we want. The case where this fails is 
-            when an UNDEF is ORRED with a 0. UNDEF, 11, OR 0 is 11, which is 1 when ANDED with 01. 
-            However, this case has already been handled above so it doesn't need to be considered
-            here.
-         */
+         // This needs to be adjusted in case there is an UNDEF, which is accomplished with & 1
          output = (a | b) & 1;
 
          break;
@@ -147,15 +136,10 @@ short Gate::calculateOutput()
    // the Gate is negated logic.
    if (type > 2)
    {
-      // Perform an XOR operation on the output value. By this point output is equal to either 0 or 1.
-      // Performing an XOR with 1 causes switches it to 0 if the current value is 1, and 1 if the 
-      // current value is 0. (Equivalent to a NOT operation)
       output ^= 1;
    }
 
-   /*
-      We have acheived the scheduled output, so we can now forget about it.
-   */
+   // We have acheived the scheduled output, so we can now forget about it.
    if (scheduledOutput == output)
    {
       scheduledOutput = -1;

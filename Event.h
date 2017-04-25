@@ -9,12 +9,6 @@ using namespace std;
     The Event class tracks a specific event for pushing into the priority
     queue.
 
-    Modifications:
-      - Added the static "Null event" property - DTF
-
-   Note:
-      - No need for setters in this class
-
     Author: Logan O'Brien
     Date:   4/11/17
 */

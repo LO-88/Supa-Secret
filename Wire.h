@@ -45,9 +45,7 @@ public:
 
    //Setter functions:
    void addGate(Gate* gate);
-   void setName(string nameVal);
    void setState(short stateVal);
-   void setWireNumber(short num);
 
    //Getter functions:
    string getName() const;
@@ -57,13 +55,16 @@ public:
    //getters and setters for the vectors
    vector<Gate*> getGates() const;
    
+   /*
+      Gets the history at a certain index of time.
+   */
    pair<char, int> getHistory(int index) const;
+
+   /*
+      Gets the number of history items.
+   */
    int getNumHistoryItems() const;
 
-   //Destructor??
 };
-
-
-
 
 #endif //WIRE_H

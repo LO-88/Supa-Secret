@@ -12,12 +12,7 @@
 
 using namespace std;
 
-/*
-    Apparently he's fine with us leaking memory all over the place.
-*/
-/*
-   Dr Shomper told me he wants this done by tomorrow night
-*/
+
 void parseCircuit(ifstream& in, Circuit& c)
 {
 	string inputString;
@@ -234,8 +229,8 @@ int main()
    Circuit c;
 
    // Create the file streams
-   ifstream circuitInput("Supa-Secret/flipflop.txt");
-   ifstream vectorInput("Supa-Secret/flipflop_v.txt");
+   ifstream circuitInput("Supa-Secret/judahTest_circuit2.txt");
+   ifstream vectorInput("Supa-Secret/judahTest_circuit2_v.txt");
 
    // Parse the circuit file
    parseCircuit(circuitInput, c);
